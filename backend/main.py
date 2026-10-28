@@ -17,16 +17,18 @@ app = FastAPI()
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "https://personalized-travel-itinerary-plan-self.vercel.app",
-        "https://personalized-travel-itinerary-planner-87lxio4kc.vercel.app",
     ],
+    allow_origin_regex=r"https://personalized-travel-itinerary-planner-[a-z0-9-]+\.vercel\.app",
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 
