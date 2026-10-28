@@ -16,15 +16,18 @@ db = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 app = FastAPI()
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        frontend_url,
+        "https://personalized-travel-itinerary-plan-self.vercel.app",
+        "https://personalized-travel-itinerary-planner-87lxio4kc.vercel.app",
     ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 class Trip(BaseModel):
