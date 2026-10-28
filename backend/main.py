@@ -14,9 +14,14 @@ ai = Groq(api_key=os.environ["GROQ_API_KEY"])
 db = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 
 app = FastAPI()
+frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        frontend_url,
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
