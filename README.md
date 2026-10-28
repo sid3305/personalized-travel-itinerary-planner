@@ -1,67 +1,76 @@
-# Personalized Travel Itinerary Planner
+# ✈️ Personalized Travel Itinerary Planner
 
 An AI-powered travel planning web application that generates personalized, day-by-day itineraries based on destination, budget, travel duration, group size, travel style, and interests.
 
-Built with **React, FastAPI, Groq, and Supabase**, the application simplifies trip planning by organizing attractions, dining, accommodation, and transportation into a structured itinerary.
+**🌐 [Live Demo](https://personalized-travel-itinerary-planner-b2k6js0w2.vercel.app/)** · **⚙️ [Backend API](https://musafir-g0w3.onrender.com/)** · **📚 [API Documentation](https://musafir-g0w3.onrender.com/docs)**
 
-## Features
+Built with **React, Vite, FastAPI, Groq, and Supabase**, the application simplifies trip planning by organizing attractions, dining, accommodation, and transportation into a structured itinerary.
 
-- **AI-Powered Itinerary Generation:** Generate personalized travel plans using Groq-hosted LLMs.
-- **Custom Trip Preferences:** Specify destination, duration, number of travelers, total budget, currency, travel style, and interests.
-- **Day-Wise Planning:** View activities organized by day, with suggested times, descriptions, categories, and estimated costs.
-- **Cost Estimation:** Calculate the estimated total from individual activity costs and display amounts in the selected currency.
-- **Saved Trips Dashboard:** Store and retrieve previously generated itineraries using Supabase.
-- **Day Regeneration:** Generate alternative activities for a specific day without replacing the entire itinerary.
-- **Trip Management:** Select and delete saved trips.
-- **Responsive Interface:** Use a clean dashboard designed for desktop and smaller screens.
+> **Note:** The backend runs on a free hosting tier and may take a little time to respond after inactivity. Activity costs are AI-generated estimates, not live prices.
 
-## Technology Stack
+## ✨ Features
+
+- **AI-Powered Itinerary Generation** — Generate personalized travel plans using Groq-hosted language models.
+- **Custom Trip Preferences** — Specify destination, duration, number of travelers, total budget, currency, travel style, and interests.
+- **Day-Wise Planning** — Explore activities organized by day, with suggested times, descriptions, categories, and estimated costs.
+- **Cost Estimation** — View estimated activity costs and the itinerary's total in the selected currency.
+- **Saved Trips Dashboard** — Store and retrieve previously generated itineraries using Supabase.
+- **Day Regeneration** — Generate alternative activities for a specific day without replacing the entire itinerary.
+- **Trip Management** — Select and delete saved trips.
+- **Responsive Interface** — A clean dashboard designed for desktop and smaller screens.
+
+## 🛠️ Technology Stack
 
 | Component | Technology |
 |---|---|
 | Frontend | React 19 |
-| Development Server | Vite |
+| Development and Build Tool | Vite |
 | Backend | Python, FastAPI |
 | AI Integration | Groq API |
 | Language Model | `openai/gpt-oss-20b` |
 | Database | Supabase PostgreSQL |
-| API Validation | Pydantic |
+| Data Validation | Pydantic |
 | Environment Configuration | python-dotenv |
 | API Documentation | FastAPI Swagger UI |
+| Frontend Hosting | Vercel |
+| Backend Hosting | Render |
 
-## System Architecture
+## 🏗️ System Architecture
 
 ```text
-User
-  |
-  v
-React + Vite Frontend
-  |
-  | HTTP / JSON
-  v
-FastAPI Backend
-  |
-  +------> Groq API
-  |        Generates structured itineraries
-  |
-  +------> Supabase PostgreSQL
-           Saves and retrieves trips
-  |
-  v
-Personalized Itinerary
-  |
-  v
-React Dashboard
+                 User
+                   |
+                   v
+          React + Vite Frontend
+              (Vercel)
+                   |
+               HTTP / JSON
+                   |
+                   v
+             FastAPI Backend
+                (Render)
+              /          \
+             v            v
+         Groq API      Supabase
+       Itinerary       PostgreSQL
+       Generation      Trip Storage
+              \          /
+               v        v
+           Personalized
+             Itinerary
+                   |
+                   v
+            React Dashboard
 ```
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
-Travel-itenary/
+personalized-travel-itinerary-planner/
 ├── backend/
 │   ├── main.py
 │   ├── requirements.txt
-│   └── .env
+│   └── .env                  # Local secrets; not committed
 ├── database/
 │   └── schema.sql
 ├── src/
@@ -79,38 +88,32 @@ Travel-itenary/
 └── README.md
 ```
 
-The `.venv/` and `node_modules/` directories contain local dependencies and are not included in the project structure above.
+The `.venv/` and `node_modules/` directories contain local dependencies and should not be committed.
 
-## Prerequisites
+## 🚀 Run Locally
 
-Install the following before running the application:
+### Prerequisites
 
-- Python 3.10 or a compatible newer Python version
+- Python 3.10 or a compatible newer version
 - Node.js and npm
-- A Groq API key
-- A Supabase project with the required database table
+- A [Groq API key](https://console.groq.com/)
+- A [Supabase](https://supabase.com/) project
 
-## Setup and Installation
+### 1. Clone the repository
 
-### 1. Clone or open the project
+```bash
+git clone https://github.com/sid3305/personalized-travel-itinerary-planner.git
+cd personalized-travel-itinerary-planner
+```
 
-Open the project root directory in VS Code.
-
-### 2. Configure the Python environment
-
-Create a virtual environment if you have not already created one:
+### 2. Create and activate a Python environment
 
 ```powershell
 py -3.10 -m venv .venv
-```
-
-Activate it:
-
-```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-Install backend dependencies:
+Install the backend dependencies:
 
 ```powershell
 pip install -r backend/requirements.txt
@@ -118,19 +121,19 @@ pip install -r backend/requirements.txt
 
 ### 3. Configure environment variables
 
-Create `backend/.env` with the following variables:
+Create a file named `backend/.env`:
 
 ```dotenv
 GROQ_API_KEY=your_groq_api_key
 SUPABASE_URL=your_supabase_project_url
-SUPABASE_KEY=your_supabase_backend_key
+SUPABASE_KEY=your_supabase_key
 ```
 
-Replace the placeholders with your actual credentials. Never commit `.env` or expose API keys in screenshots, recordings, or public repositories.
+Replace the placeholders with your own credentials. Never commit real API keys or secret values to GitHub.
 
-### 4. Configure Supabase
+### 4. Configure the database
 
-Open the Supabase SQL Editor and execute the SQL in:
+Open the Supabase SQL Editor and execute the contents of:
 
 ```text
 database/schema.sql
@@ -138,106 +141,101 @@ database/schema.sql
 
 The application expects a `trips` table with the following fields:
 
-- `id`: Unique trip identifier
-- `destination`: Trip destination
-- `params`: JSONB containing trip preferences
-- `plan`: JSONB containing the generated itinerary
-- `created_at`: Trip creation timestamp
+| Column | Purpose |
+|---|---|
+| `id` | Unique trip identifier |
+| `destination` | Trip destination |
+| `params` | JSONB containing trip preferences |
+| `plan` | JSONB containing the generated itinerary |
+| `created_at` | Trip creation timestamp |
 
-Configure appropriate Row Level Security policies before exposing the application publicly.
+Configure appropriate Row Level Security (RLS) policies and database permissions before making the application available to users.
 
 ### 5. Install frontend dependencies
 
-From the project root, run:
+From the project root:
 
 ```powershell
 npm install
 ```
 
-### 6. Start the complete application
+### 6. Start the application
 
-The project includes a combined development script that starts both the frontend and backend:
+Start both the frontend and backend using the combined development script:
 
 ```powershell
 npm run dev:full
 ```
 
-Open the frontend:
+Open the application:
 
-**http://localhost:5173**
-
-FastAPI API documentation:
-
-**http://localhost:8000/docs**
+- **Frontend:** http://localhost:5173
+- **Backend health check:** http://localhost:8000/
+- **Interactive API documentation:** http://localhost:8000/docs
 
 Keep the terminal running while using the application. Press `Ctrl + C` to stop the development servers.
 
-## How to Use
+## 🧭 How to Use
 
 1. Enter a destination, such as Jaipur, India.
-2. Choose the number of days and travelers.
-3. Enter the total trip budget and select a currency.
-4. Select a travel style, such as relaxed, adventure, cultural, romantic, or foodie.
-5. Enter interests such as food, temples, shopping, or hiking.
+2. Choose the duration of the trip and the number of travelers.
+3. Enter the total budget and select a currency.
+4. Choose a travel style, such as relaxed or adventure.
+5. Add interests such as food, temples, shopping, or hiking.
 6. Click **Generate itinerary**.
-7. Explore the day-wise schedule, activities, descriptions, and estimated costs.
-8. Use **Regenerate** to request alternative activities for a particular day.
-9. Select a saved trip to view it again, or delete a trip when it is no longer needed.
+7. Explore the day-wise activities, suggested schedule, and estimated costs.
+8. Regenerate an individual day to explore alternative activities.
+9. Select a saved trip to view it again, or delete it when it is no longer needed.
 
-## API Endpoints
+## 🔌 API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/` | Check whether the backend is running |
-| POST | `/generate` | Generate and save a new itinerary |
-| GET | `/trips` | Retrieve saved trips |
-| POST | `/trips/{trip_id}/regenerate/{day}` | Regenerate a specific day |
-| DELETE | `/trips/{trip_id}` | Delete a saved trip |
+| `GET` | `/` | Check backend availability |
+| `POST` | `/generate` | Generate and save an itinerary |
+| `GET` | `/trips` | Retrieve saved trips |
+| `POST` | `/trips/{trip_id}/regenerate/{day}` | Regenerate a specific day |
+| `DELETE` | `/trips/{trip_id}` | Delete a saved trip |
 
-Interactive API documentation is available at `/docs` while FastAPI is running.
+The interactive API documentation is available at [`/docs`](https://musafir-g0w3.onrender.com/docs).
 
-## AI and Cost Estimation
+## 🤖 AI and Cost Estimation
 
-The backend sends the user's trip preferences to the Groq API. The language model returns a structured JSON itinerary containing daily themes and activities.
+The backend sends trip preferences to the Groq API, which generates a structured JSON itinerary containing daily themes and activities. The generated plan is stored in Supabase and displayed through the React interface.
 
-The application stores the generated plan in Supabase and displays the itinerary through the React interface.
+**Cost estimates are approximate.** Activity costs are AI-generated and may not reflect current admission fees, transportation fares, or accommodation prices. Currency selection controls the intended currency and display formatting; it does not perform live foreign exchange conversion.
 
-Activity costs are AI-generated estimates, not verified live prices. Currency selection controls the intended currency and display formatting; it does not perform foreign exchange conversion. Actual costs may differ from the estimates.
+## 🔐 Security Considerations
 
-## Security Considerations
+This project is an educational MVP. Before using it for real users:
 
-This application is a demonstration MVP.
-
-Before production deployment:
-
-- Enable authentication and enforce user-specific database access.
-- Configure restrictive Row Level Security policies.
-- Keep API keys exclusively on the backend.
+- Add authentication and user-specific trip access.
+- Enforce restrictive Row Level Security policies in Supabase.
+- Keep API keys on the backend.
 - Restrict CORS to trusted frontend origins.
-- Add robust error handling, request limits, and API rate limiting.
-- Validate generated itinerary data and budget constraints.
-- Avoid exposing sensitive trip information to unauthorized users.
+- Add request validation, rate limiting, and robust error handling.
+- Validate AI-generated itinerary data and budget constraints.
+- Avoid exposing private trip information to unauthorized users.
 
-Do not use unrestricted database policies for a public deployment.
+## ⚠️ Current Limitations
 
-## Current Limitations
-
-- Activity recommendations and prices are AI-generated and may be inaccurate.
-- Live booking, hotel availability, and real-time transportation data are not integrated.
-- The selected currency is not automatically converted using live exchange rates.
+- Recommendations and prices are AI-generated and may be inaccurate.
+- Live hotel availability, booking, and transportation data are not integrated.
+- Currency conversion using live exchange rates is not supported.
 - User authentication and collaborative trip sharing are not implemented.
-- Individual activity editing is not currently supported; regeneration operates at the day level.
+- Individual activity editing is not supported; regeneration operates at the day level.
+- Free hosting tiers may introduce cold-start delays or usage limits.
 
-## Future Enhancements
+## 🔮 Future Enhancements
 
 - User authentication and private trip management
-- Collaborative itinerary planning
 - Interactive maps and route optimization
 - Live travel prices and accommodation availability
 - Activity-level editing and scheduling
-- Currency conversion using exchange-rate data
-- Export itineraries to PDF
+- Live currency conversion
+- PDF itinerary export
+- Collaborative trip planning
 
-## License
+## 📄 License
 
-This project was developed as an educational demonstration. Add an appropriate open-source license before distributing the source code publicly.
+This project was developed as an educational demonstration. No open-source license has been specified yet. Add a `LICENSE` file if you intend to distribute the project under a particular license.
